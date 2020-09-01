@@ -1,0 +1,20 @@
+{
+    "name": "biserg/gendiff",
+    "description": "BrainGames - gamepack, Hexlet education project",
+    "authors": [
+        {
+            "name": "Bi Serg",
+            "email": "i.b@msulab.ru"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "src/runner.php",
+            "src/generator.php"
+        ]
+    },
+    "require": {
+        "docopt/docopt": "^1.0",
+        "funct/funct": "^1.5"
+    }
+}
