@@ -3,6 +3,7 @@
 namespace Gendiff\runner;
 
 use Docopt;
+
 use function Gendiff\generator\generateDiff;
 
 function run()
@@ -28,17 +29,17 @@ function run()
         switch ($item['type']) {
             case 'unchanged':
                 $acc[] = ['sort' => $item['key'], 'result' => "  {$item['key']}: {$item['value']}"];
-            break;
+                break;
             case 'changed':
                 $acc[] = ['sort' => $item['key'], 'result' => "- {$item['key']}: {$item['oldValue']}"];
                 $acc[] = ['sort' => $item['key'], 'result' => "+ {$item['key']}: {$item['newValue']}"];
-            break;
+                break;
             case 'deleted':
                 $acc[] = ['sort' => $item['key'], 'result' => "- {$item['key']}: {$item['value']}"];
-            break;
+                break;
             case 'added':
                 $acc[] = ['sort' => $item['key'], 'result' => "+ {$item['key']}: {$item['value']}"];
-            break;
+                break;
         }
         return $acc;
     }, []);

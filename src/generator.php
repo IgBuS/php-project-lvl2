@@ -4,7 +4,8 @@ namespace Gendiff\generator;
 
 use Funct\Collection;
 
-function generateDiff($filePath1, $filePath2){
+function generateDiff($filePath1, $filePath2)
+{
     $rawDataBefore = file_get_contents($filePath1);
     $rawDataAfter = file_get_contents($filePath2);
     $parsedDataBefore = json_decode($rawDataBefore, true);
