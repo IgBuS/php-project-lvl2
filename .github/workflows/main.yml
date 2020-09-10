@@ -35,6 +35,7 @@ jobs:
         run: make install
       - name: Run linter
         # Run Linter
+        run: make lint-fix
         run: make lint
         # Publish code coverage on Code Climate
         # https://github.com/paambaati/codeclimate-action
