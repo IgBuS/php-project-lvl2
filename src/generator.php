@@ -16,7 +16,40 @@ function generateDiff($filePath1, $filePath2)
         $acc[] = getTypes($key, $parsedDataBefore, $parsedDataAfter);
         return $acc;
     });
-    return $ast;
+
+    $resultToPrint = array_reduce($ast, function ($acc, $item) {
+        switch ($item['type']) {
+            case 'unchanged':
+                $value = boolToString($item['value']);
+                $acc[] = ['sort' => $item['key'], 'result' => "    {$item['key']}: {$value}"];
+                break;
+            case 'changed':
+                $oldValue = boolToString($item['oldValue']);
+                $newValue = boolToString($item['newValue']);
+                $acc[] = ['sort' => $item['key'], 'result' => "  - {$item['key']}: {$item['oldValue']}"];
+                $acc[] = ['sort' => $item['key'], 'result' => "  + {$item['key']}: {$item['newValue']}"];
+                break;
+            case 'deleted':
+                $value = boolToString($item['value']);
+                $acc[] = ['sort' => $item['key'], 'result' => "  - {$item['key']}: {$value}"];
+                break;
+            case 'added':
+                $value = boolToString($item['value']);
+                $acc[] = ['sort' => $item['key'], 'result' => "  + {$item['key']}: {$value}"];
+                break;
+        }
+        return $acc;
+    }, []);
+    usort($resultToPrint, function ($a, $b) {
+        return strcmp($a["sort"], $b["sort"]);
+    });
+    $result = array_reduce($resultToPrint, function ($acc, $item) {
+        $acc[] = $item['result'];
+        return $acc;
+    }, []);
+    print_r($result);
+    $result = implode("\n", $result);
+    return "{\n{$result}\n}";
 }
 
 function getTypes($key, $before, $after)
@@ -36,5 +69,15 @@ function getTypes($key, $before, $after)
     }
     if ($before[$key] !== $after[$key]) {
         return ['type' => 'changed', 'key' => $key, 'oldValue' => $before[$key], 'newValue' => $after[$key]];
+    }
+}
+function boolToString($value)
+{
+    if ($value === true) {
+        return "true";
+    } elseif ($value === false) {
+        return "false";
+    } else {
+        return $value;
     }
 }

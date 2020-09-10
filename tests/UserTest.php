@@ -3,7 +3,7 @@
 namespace Php\Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Php\Package\User;
+use function Gendiff\generator\generateDiff;
 
 class UserTest extends TestCase
 {
@@ -12,8 +12,7 @@ class UserTest extends TestCase
         $pathToFirstFileToCompare = __DIR__ . "/fixtures/file1.json";
         $pathToSecondFileToCompare = __DIR__ . "/fixtures/file2.json";
 
-        $correctAnswer = file_get_contents(__DIR__ . "fixtures/expected/TwoJson");
-        $this->assertEquals($name, $user->getName());
-        $this->assertEquals(collect($children), $user->getChildren());
+        $correctAnswer = file_get_contents(__DIR__ . "/fixtures/expected/TwoJson");
+        $this->assertEquals($correctAnswer, generateDiff($pathToFirstFileToCompare, $pathToSecondFileToCompare));
     }
 }
