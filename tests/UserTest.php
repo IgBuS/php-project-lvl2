@@ -3,6 +3,7 @@
 namespace Php\Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
+
 use function Gendiff\generator\generateDiff;
 
 class UserTest extends TestCase
