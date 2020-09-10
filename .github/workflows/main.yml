@@ -41,7 +41,7 @@ jobs:
         # Publish code coverage on Code Climate
         # https://github.com/paambaati/codeclimate-action
       - name: Run Codeclimate test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.4.0
+        uses: paambaati/codeclimate-action@v2.6.0
 
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
