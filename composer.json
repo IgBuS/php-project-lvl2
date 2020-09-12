@@ -18,7 +18,8 @@
             "src/diffBuilder.php",
             "src/SubFunctions/subFunctions.php",
             "src/Formatters/basicFormat.php",
-            "src/Formatters/plainFormat.php"
+            "src/Formatters/plainFormat.php",
+            "src/Formatters/jsonFormat.php"
         ]
     },
     "require": {

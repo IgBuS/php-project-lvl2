@@ -2,9 +2,9 @@
 
 namespace Gendiff\Formatters\PlainFormat;
 
-use function Gendiff\SubFunctions\SubFunctions\boolToString;
+use function Gendiff\SubFunctions\SubFunctions\convertBoolToString;
 
-function getOutputInPlainFormat($diff, $depth = 0)
+function getOutputInPlainFormat($diff)
 {
     return getOutput($diff);
 }
@@ -42,7 +42,7 @@ function getOutput($diff, $level = null)
 function transformValueToOutputFormat($value)
 {
     if (is_bool($value)) {
-        return boolToString($value);
+        return convertBoolToString($value);
     }
     if (is_array($value)) {
         return '[complex value]';

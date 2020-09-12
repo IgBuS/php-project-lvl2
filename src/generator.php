@@ -6,6 +6,7 @@ use function Gendiff\Parser\parse;
 use function Gendiff\DiffBuilder\buildDiff;
 use function Gendiff\Formatters\BasicFormat\getOutputInBasicFormat;
 use function Gendiff\Formatters\PlainFormat\getOutputInPlainFormat;
+use function Gendiff\Formatters\JsonFormat\getOutputInJsonFormat;
 
 function generateDiff($filePath1, $filePath2, $format = 'basic')
 {
@@ -26,6 +27,9 @@ function format($diff, $format)
         },
         'plain' => function ($diff) {
             return getOutputInPlainFormat($diff);
+        },
+        'json' => function ($diff) {
+            return getOutputInJsonFormat($diff);
         }
     ];
     return $ways[$format]($diff);

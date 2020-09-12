@@ -2,7 +2,7 @@
 
 namespace Gendiff\Formatters\BasicFormat;
 
-use function Gendiff\SubFunctions\SubFunctions\boolToString;
+use function Gendiff\SubFunctions\SubFunctions\convertBoolToString;
 
 function getOutputInBasicFormat($diff, $depth = 0)
 {
@@ -55,7 +55,7 @@ function getOutput($diff, $depth = 0)
 function valueToOutput($value, $depth)
 {
     if (is_bool($value)) {
-        return boolToString($value);
+        return convertBoolToString($value);
     }
     if (is_array($value)) {
         return arrayToOutput($value, $depth);

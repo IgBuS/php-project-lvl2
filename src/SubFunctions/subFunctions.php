@@ -2,7 +2,7 @@
 
 namespace Gendiff\SubFunctions\SubFunctions;
 
-function boolToString($value)
+function convertBoolToString($value)
 {
     if ($value === true) {
         return "true";

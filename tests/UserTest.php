@@ -44,4 +44,14 @@ class UserTest extends TestCase
         $resultToCheck = generateDiff($pathToFirstFileToCompare, $pathToSecondFileToCompare, 'plain');
         $this->assertEquals($correctAnswer, $resultToCheck);
     }
+
+    public function testRecursiveFilesWithJasonOutput(): void
+    {
+        $pathToFirstFileToCompare = __DIR__ . "/fixtures/recursiveBefore.json";
+        $pathToSecondFileToCompare = __DIR__ . "/fixtures/recursiveAfter.json";
+
+        $correctAnswer = file_get_contents(__DIR__ . "/fixtures/expected/expRecursiveDiffJson");
+        $resultToCheck = generateDiff($pathToFirstFileToCompare, $pathToSecondFileToCompare, 'json');
+        $this->assertEquals($correctAnswer, $resultToCheck);
+    }
 }
