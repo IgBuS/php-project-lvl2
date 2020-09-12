@@ -23,6 +23,6 @@ function run()
     $filePath2 = $args['<secondFile>'];
     $format = $args['--format'];
         
-    $result = generateDiff($filePath1, $filePath2);
+    $result = generateDiff($filePath1, $filePath2, $format);
     print_r($result);
 }

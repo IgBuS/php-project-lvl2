@@ -16,7 +16,9 @@
             "src/generator.php",
             "src/parser.php",
             "src/diffBuilder.php",
-            "src/Formatters/basicFormat.php"
+            "src/SubFunctions/subFunctions.php",
+            "src/Formatters/basicFormat.php",
+            "src/Formatters/plainFormat.php"
         ]
     },
     "require": {

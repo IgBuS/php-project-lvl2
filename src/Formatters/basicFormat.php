@@ -2,6 +2,8 @@
 
 namespace Gendiff\Formatters\BasicFormat;
 
+use function Gendiff\SubFunctions\SubFunctions\boolToString;
+
 function getOutputInBasicFormat($diff, $depth = 0)
 {
     $result = getOutput($diff);
@@ -72,15 +74,4 @@ function arrayToOutput($array, $depth)
     });
     $result = implode(PHP_EOL, $values);
     return "{\n{$result}\n{$indent}}";
-}
-
-function boolToString($value)
-{
-    if ($value === true) {
-        return "true";
-    } elseif ($value === false) {
-        return "false";
-    } else {
-        return $value;
-    }
 }
