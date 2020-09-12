@@ -1,10 +1,10 @@
 <?php
 
-namespace Gendiff\generator;
+namespace Gendiff\Generator;
 
-use function Gendiff\parser\parse;
-use function Gendiff\diffBuilder\buildDiff;
-use function Gendiff\shapers\basicFormat\getOutput;
+use function Gendiff\Parser\parse;
+use function Gendiff\DiffBuilder\buildDiff;
+use function Gendiff\Formatters\BasicFormat\getOutputInBasicFormat;
 
 function generateDiff($filePath1, $filePath2)
 {
@@ -13,6 +13,6 @@ function generateDiff($filePath1, $filePath2)
     $parsedDataBefore = parse($rawDataBefore, pathinfo($filePath1, PATHINFO_EXTENSION));
     $parsedDataAfter = parse($rawDataAfter, pathinfo($filePath2, PATHINFO_EXTENSION));
     $diff = buildDiff($parsedDataBefore, $parsedDataAfter);
-    $result = getOutput($diff);
-    return "{\n{$result}\n}";
+    
+    return getOutputInBasicFormat($diff);
 }

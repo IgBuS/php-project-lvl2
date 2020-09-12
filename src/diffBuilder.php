@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\diffBuilder;
+namespace Gendiff\DiffBuilder;
 
 use Funct\Collection;
 

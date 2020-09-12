@@ -1,6 +1,12 @@
 <?php
 
-namespace Gendiff\shapers\basicFormat;
+namespace Gendiff\Formatters\BasicFormat;
+
+function getOutputInBasicFormat($diff, $depth = 0)
+{
+    $result = getOutput($diff);
+    return "{\n{$result}\n}";
+}
 
 function getOutput($diff, $depth = 0)
 {
@@ -27,7 +33,8 @@ function getOutput($diff, $depth = 0)
                 break;
             case 'parent':
                 $children = getOutput($item['children'], $depth + 1);
-                $acc[] = ['sort' => $item['key'], 'result' => "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}"];
+                $acc[] = ['sort' => $item['key'],
+                'result' => "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}"];
                 break;
         }
         return $acc;
