@@ -13,12 +13,14 @@
     "autoload": {
         "files": [
             "src/runner.php",
-            "src/generator.php"
+            "src/generator.php",
+            "src/parser.php"
         ]
     },
     "require": {
         "docopt/docopt": "^1.0",
-        "funct/funct": "^1.5"
+        "funct/funct": "^1.5",
+        "symfony/yaml": "^4.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.3",

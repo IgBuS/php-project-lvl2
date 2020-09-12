@@ -4,12 +4,14 @@ namespace Gendiff\generator;
 
 use Funct\Collection;
 
+use function Gendiff\parser\parse;
+
 function generateDiff($filePath1, $filePath2)
 {
     $rawDataBefore = file_get_contents($filePath1);
     $rawDataAfter = file_get_contents($filePath2);
-    $parsedDataBefore = json_decode($rawDataBefore, true);
-    $parsedDataAfter = json_decode($rawDataAfter, true);
+    $parsedDataBefore = parse($rawDataBefore, pathinfo($filePath1, PATHINFO_EXTENSION));
+    $parsedDataAfter = parse($rawDataAfter, pathinfo($filePath2, PATHINFO_EXTENSION));
 
     $keys = Collection\union(array_keys($parsedDataBefore), array_keys($parsedDataAfter));
     $ast = array_reduce($keys, function ($acc, $key) use ($parsedDataBefore, $parsedDataAfter) {
