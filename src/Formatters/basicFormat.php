@@ -41,6 +41,11 @@ function getOutput($diff, $depth = 0)
         }
         return $acc;
     }, []);
+    return prepareToOutput($resultToPrint);
+}
+
+function prepareToOutput($resultToPrint)
+{
     usort($resultToPrint, function ($a, $b) {
         return strcmp($a["sort"], $b["sort"]);
     });

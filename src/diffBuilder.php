@@ -16,7 +16,7 @@ function buildDiff($parsedDataBefore, $parsedDataAfter)
 
 function getTypes($key, $before, $after)
 {
-    
+
     if (!array_key_exists($key, $before)) {
         return ['type' => 'added', 'key' => $key, 'value' => $after[$key]];
     }
@@ -26,10 +26,10 @@ function getTypes($key, $before, $after)
     if (is_array($before[$key]) && is_array($after[$key])) {
         return ['type' => 'parent', 'key' => $key, 'children' => buildDiff($before[$key], $after[$key])];
     }
+
     if ($before[$key] === $after[$key]) {
         return ['type' => 'unchanged', 'key' => $key, 'value' => $before[$key]];
-    }
-    if ($before[$key] !== $after[$key]) {
+    } else {
         return ['type' => 'changed', 'key' => $key, 'oldValue' => $before[$key], 'newValue' => $after[$key]];
     }
 }

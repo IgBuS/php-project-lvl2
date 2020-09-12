@@ -34,6 +34,11 @@ function getOutput($diff, $level = null)
         }
         return $acc;
     }, []);
+    return prepareToOutput($resultToPrint);
+}
+
+function prepareToOutput($resultToPrint)
+{
     sort($resultToPrint);
     $result = implode("\n", $resultToPrint);
     return $result;
