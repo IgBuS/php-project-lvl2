@@ -14,7 +14,9 @@
         "files": [
             "src/runner.php",
             "src/generator.php",
-            "src/parser.php"
+            "src/parser.php",
+            "src/diffBuilder.php",
+            "src/shapers/basicFormat.php"
         ]
     },
     "require": {
