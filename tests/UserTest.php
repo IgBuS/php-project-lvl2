@@ -12,14 +12,19 @@ class UserTest extends TestCase
     * @dataProvider testProvider
     */
 
-    public function testDiff($pathToFirstFileToCompare, $pathToSecondFileToCompare, $pathToFileWithCorrectAnswer, $format): void
+    public function testDiff(...$args): void
     {
+        [$pathToFirstFileToCompare,
+        $pathToSecondFileToCompare,
+        $pathToFileWithCorrectAnswer,
+        $format] = $args;
 
         $pathToFirstFileToCompare = $this->getFilePath($pathToFirstFileToCompare);
         $pathToSecondFileToCompare = $this->getFilePath($pathToSecondFileToCompare);
 
         $correctAnswer = file_get_contents($this->getFilePath($pathToFileWithCorrectAnswer, 'answer'));
-        $this->assertEquals($correctAnswer, generateDiff($pathToFirstFileToCompare, $pathToSecondFileToCompare, $format));
+        $result = generateDiff($pathToFirstFileToCompare, $pathToSecondFileToCompare, $format);
+        $this->assertEquals($correctAnswer, $result);
     }
     
     public function testProvider()

@@ -16,21 +16,21 @@ function getOutput($diff, $depth = 0)
     $resultToPrint = array_reduce($diff, function ($acc, $item) use ($indent, $depth) {
         switch ($item['type']) {
             case 'unchanged':
-                $value = valueToOutput($item['value'], $depth);
+                $value = prepareValueToOutput($item['value'], $depth);
                 $acc[] = ['sort' => $item['key'], 'result' => "{$indent}    {$item['key']}: {$value}"];
                 break;
             case 'changed':
-                $oldValue = valueToOutput($item['oldValue'], $depth);
-                $newValue = valueToOutput($item['newValue'], $depth);
+                $oldValue = prepareValueToOutput($item['oldValue'], $depth);
+                $newValue = prepareValueToOutput($item['newValue'], $depth);
                 $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  - {$item['key']}: {$oldValue}"];
                 $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  + {$item['key']}: {$newValue}"];
                 break;
             case 'deleted':
-                $value = valueToOutput($item['value'], $depth);
+                $value = prepareValueToOutput($item['value'], $depth);
                 $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  - {$item['key']}: {$value}"];
                 break;
             case 'added':
-                $value = valueToOutput($item['value'], $depth);
+                $value = prepareValueToOutput($item['value'], $depth);
                 $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  + {$item['key']}: {$value}"];
                 break;
             case 'parent':
@@ -57,23 +57,23 @@ function prepareToOutput($resultToPrint)
     return "{$result}";
 }
 
-function valueToOutput($value, $depth)
+function prepareValueToOutput($value, $depth)
 {
     if (is_bool($value)) {
         return convertBoolToString($value);
     }
     if (is_array($value)) {
-        return arrayToOutput($value, $depth);
+        return prepareArrayToOutput($value, $depth);
     }
     return $value;
 }
 
-function arrayToOutput($array, $depth)
+function prepareArrayToOutput($array, $depth)
 {
     $indent = str_repeat('    ', $depth + 1);
     $keys = array_keys($array);
     $values = array_reduce($keys, function ($acc, $key) use ($array, $indent, $depth) {
-        $value = valueToOutput($array[$key], $depth + 1);
+        $value = prepareValueToOutput($array[$key], $depth + 1);
         $acc[] = "{$indent}    {$key}: {$value}";
         return $acc;
     });
