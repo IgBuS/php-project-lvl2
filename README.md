@@ -7,7 +7,7 @@
 ![CI](https://github.com/IgBuS/php-project-lvl2/workflows/CI/badge.svg)
 </html>
 
-
+[![asciicast](https://asciinema.org/a/IiLEqlQJW9nYDbq53hmPDAaby.svg)](https://asciinema.org/a/IiLEqlQJW9nYDbq53hmPDAaby) 
 ## GenDiff
 This app was created to help you find out the difference between two versions of file or two same type files. You are able to use it with .json or .yaml files. Also you can choose format of difference presentation. 
 For example:
