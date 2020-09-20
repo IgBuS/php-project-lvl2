@@ -1,6 +1,8 @@
 {
     "name": "biserg/gendiff",
-    "description": "BrainGames - gamepack, Hexlet education project",
+    "description": "Gendiff - CLI, Hexlet education project",
+    "bin": ["bin/gendiff"
+    ],
     "authors": [
         {
             "name": "Bi Serg",
