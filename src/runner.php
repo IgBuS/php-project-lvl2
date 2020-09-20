@@ -15,7 +15,7 @@ function run()
 	  gendiff [--format <fmt>] <firstFile> <secondFile>
 	Options:
 	  -h --help                     Show this screen
-	  --format <fmt>                Report format [default: pretty]
+	  --format <fmt>                Report format [default: basic]
 	DOC;
 
     $args = Docopt::handle($doc);
@@ -24,5 +24,5 @@ function run()
     $format = $args['--format'];
         
     $result = generateDiff($filePath1, $filePath2, $format);
-    print_r($result);
+    echo $result;
 }
