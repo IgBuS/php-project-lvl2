@@ -32,7 +32,7 @@ class UserTest extends TestCase
     public function testProvider()
     {
         return [
-            "prettyYamlDiff" => [
+            "basicYamlDiff" => [
                 "tests_fixtures_file1.yaml",
                 "tests_fixtures_file2.yaml",
                 "expRecursiveDiff",
