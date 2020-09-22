@@ -32,16 +32,10 @@ class UserTest extends TestCase
     public function testProvider()
     {
         return [
-            "prettyJsonDiff" => [
-                "recursiveBefore.json",
-                "recursiveAfter.json",
-                "expRecursiveDiff",
-                "basic"
-            ],
             "prettyYamlDiff" => [
-                "flatBefore.yaml",
-                "flatAfter.yaml",
-                "expFlatDiff",
+                "tests_fixtures_file1.yaml",
+                "tests_fixtures_file2.yaml",
+                "expRecursiveDiff",
                 "basic"
             ],
             "plainRecursiveJson" => [
