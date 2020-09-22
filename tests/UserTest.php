@@ -16,16 +16,16 @@ class UserTest extends TestCase
 
     public function testDiff(...$args): void
     {
-        [$pathToFirstFileToCompare,
-        $pathToSecondFileToCompare,
-        $pathToFileWithCorrectAnswer,
+        [$filepath1,
+        $filepath2,
+        $pathToResult,
         $format] = $args;
 
-        $pathToFirstFileToCompare = $this->getFilePath($pathToFirstFileToCompare);
-        $pathToSecondFileToCompare = $this->getFilePath($pathToSecondFileToCompare);
+        $filepath1 = $this->getFilePath($filepath1);
+        $filepath2 = $this->getFilePath($filepath2);
 
-        $correctAnswer = file_get_contents($this->getFilePath($pathToFileWithCorrectAnswer));
-        $result = generateDiff($pathToFirstFileToCompare, $pathToSecondFileToCompare, $format);
+        $correctAnswer = file_get_contents($this->getFilePath($pathToResult));
+        $result = generateDiff($filepath1, $filepath2, $format);
         $this->assertEquals($correctAnswer, $result);
     }
     
