@@ -23,10 +23,10 @@ class UserTest extends TestCase
 
         $filepath1 = $this->getFilePath($filepath1);
         $filepath2 = $this->getFilePath($filepath2);
+        $pathToResult = $this->getFilePath($pathToResult);
 
-        $correctAnswer = file_get_contents($this->getFilePath($pathToResult));
         $result = generateDiff($filepath1, $filepath2, $format);
-        $this->assertEquals($correctAnswer, $result);
+        $this->assertStringEqualsFile($pathToResult, $result);
     }
     
     public function testProvider()
