@@ -66,7 +66,7 @@ class UserTest extends TestCase
             'fixtures' => 'fixtures',
             'fileName' => $fileName
         ];
-        $rowPath = implode($pathContainer);
+        $rowPath = implode(DIRECTORY_SEPARATOR, $pathContainer);
         $resultPath = realpath($rowPath);
         return $resultPath;
     }
