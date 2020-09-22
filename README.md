@@ -7,14 +7,14 @@
 ![CI](https://github.com/IgBuS/php-project-lvl2/workflows/CI/badge.svg)
 </html>
 
-[![asciicast](https://asciinema.org/a/IiLEqlQJW9nYDbq53hmPDAaby.svg)](https://asciinema.org/a/IiLEqlQJW9nYDbq53hmPDAaby) 
-## GenDiff
+
+# GenDiff
 This app was created to help you find out the difference between two versions of file or two same type files. You are able to use it with .json or .yaml files. Also you can choose format of difference presentation. 
 For example:
 
-# basic ('pretty') format
+## basic ('pretty') format
 
-
+```sh
 {
   - follow: false
     host: hexlet.io
@@ -23,9 +23,11 @@ For example:
   + timeout: 20
   + verbose: true
 }
+```
 
-# plain format
+## plain format
 
+```sh
 Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to [complex value]
@@ -37,10 +39,13 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]
+```
 
-# json format
+## json format
 
+```sh
 [{"type":"parent","key":"common","children":[{"type":"unchanged","key":"setting1","value":"Value 1"},{"type":"deleted","key":"setting2","value":200},{"type":"changed","key":"setting3","oldValue":true,"newValue":{"key":"value"}},{"type":"parent","key":"setting6","children":[{"type":"unchanged","key":"key","value":"value"},{"type":"parent","key":"doge","children":[{"type":"changed","key":"wow","oldValue":"too much","newValue":"so much"}]},{"type":"added","key":"ops","value":"vops"}]},{"type":"added","key":"follow","value":false},{"type":"added","key":"setting4","value":"blah blah"},{"type":"added","key":"setting5","value":{"key5":"value5"}}]},{"type":"parent","key":"group1","children":[{"type":"changed","key":"baz","oldValue":"bas","newValue":"bars"},{"type":"unchanged","key":"foo","value":"bar"},{"type":"changed","key":"nest","oldValue":{"key":"value"},"newValue":"str"}]},{"type":"deleted","key":"group2","value":{"abc":12345,"deep":{"id":45}}},{"type":"added","key":"group3","value":{"fee":100500,"deep":{"id":{"number":45}}}}]
+```
 
 Gendiff app is avaliable fo nested structures.
 
@@ -77,5 +82,6 @@ $ gendiff
 ```
 
 
-Result video:
+## Result video
 
+[![asciicast](https://asciinema.org/a/IiLEqlQJW9nYDbq53hmPDAaby.svg)](https://asciinema.org/a/IiLEqlQJW9nYDbq53hmPDAaby) 
