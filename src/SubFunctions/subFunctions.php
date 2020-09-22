@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\SubFunctions\SubFunctions;
+namespace Biserg\Gendiff\SubFunctions\SubFunctions;
 
 function convertBoolToString($value)
 {

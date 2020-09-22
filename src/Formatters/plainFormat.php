@@ -1,8 +1,8 @@
 <?php
 
-namespace Gendiff\Formatters\PlainFormat;
+namespace Biserg\Gendiff\Formatters\PlainFormat;
 
-use function Gendiff\SubFunctions\SubFunctions\convertBoolToString;
+use function Biserg\Gendiff\SubFunctions\SubFunctions\convertBoolToString;
 
 function getOutputInPlainFormat($diff)
 {

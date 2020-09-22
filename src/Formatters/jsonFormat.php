@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\Formatters\JsonFormat;
+namespace Biserg\Gendiff\Formatters\JsonFormat;
 
 function getOutputInJsonFormat($diff)
 {

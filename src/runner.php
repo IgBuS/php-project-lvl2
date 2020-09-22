@@ -1,10 +1,10 @@
 <?php
 
-namespace Gendiff\Runner;
+namespace Biserg\Gendiff\Runner;
 
 use Docopt;
 
-use function Gendiff\Generator\generateDiff;
+use function Biserg\Gendiff\Generator\generateDiff;
 
 function run()
 {

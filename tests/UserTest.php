@@ -1,10 +1,10 @@
 <?php
 
-namespace Php\Gendiff\Tests;
+namespace Biserg\Gendiff\tests;
 
 use PHPUnit\Framework\TestCase;
 
-use function Gendiff\Generator\generateDiff;
+use function Biserg\Gendiff\Generator\generateDiff;
 
 class UserTest extends TestCase
 {

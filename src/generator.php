@@ -1,12 +1,12 @@
 <?php
 
-namespace Gendiff\Generator;
+namespace Biserg\Gendiff\Generator;
 
-use function Gendiff\Parser\parse;
-use function Gendiff\DiffBuilder\buildDiff;
-use function Gendiff\Formatters\BasicFormat\getOutputInBasicFormat;
-use function Gendiff\Formatters\PlainFormat\getOutputInPlainFormat;
-use function Gendiff\Formatters\JsonFormat\getOutputInJsonFormat;
+use function Biserg\Gendiff\Parser\parse;
+use function Biserg\Gendiff\DiffBuilder\buildDiff;
+use function Biserg\Gendiff\Formatters\BasicFormat\getOutputInBasicFormat;
+use function Biserg\Gendiff\Formatters\PlainFormat\getOutputInPlainFormat;
+use function Biserg\Gendiff\Formatters\JsonFormat\getOutputInJsonFormat;
 
 function generateDiff($filePath1, $filePath2, $format = 'basic')
 {
