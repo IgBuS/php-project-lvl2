@@ -6,6 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 use function Biserg\Gendiff\Generator\generateDiff;
 
+const DIRECTORY_SEPARATOR = "/";
+
 class UserTest extends TestCase
 {
     /**
@@ -22,7 +24,7 @@ class UserTest extends TestCase
         $pathToFirstFileToCompare = $this->getFilePath($pathToFirstFileToCompare);
         $pathToSecondFileToCompare = $this->getFilePath($pathToSecondFileToCompare);
 
-        $correctAnswer = file_get_contents($this->getFilePath($pathToFileWithCorrectAnswer, 'answer'));
+        $correctAnswer = file_get_contents($this->getFilePath($pathToFileWithCorrectAnswer));
         $result = generateDiff($pathToFirstFileToCompare, $pathToSecondFileToCompare, $format);
         $this->assertEquals($correctAnswer, $result);
     }
@@ -57,12 +59,15 @@ class UserTest extends TestCase
         ];
     }
 
-    public function getFilePath($fileName, $fileType = 'example')
+    public function getFilePath($fileName)
     {
-        if ($fileType == 'example') {
-            return __DIR__ . "/fixtures/{$fileName}";
-        } else {
-            return __DIR__ . "/fixtures/expected/{$fileName}";
-        }
+        $pathContainer = [
+            'basisDIR' => __DIR__,
+            'fixtures' => 'fixtures',
+            'fileName' => $fileName
+        ];
+        $rowPath = implode($pathContainer);
+        $resultPath = realpath($rowPath);
+        return $resultPath;
     }
 }
