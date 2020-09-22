@@ -33,9 +33,9 @@ class UserTest extends TestCase
     {
         return [
             "prettyJsonDiff" => [
-                "flatBefore.json",
-                "flatAfter.json",
-                "expFlatDiff",
+                "recursiveBefore.json",
+                "recursiveAfter.json",
+                "expRecursiveDiff",
                 "basic"
             ],
             "prettyYamlDiff" => [
