@@ -3,5 +3,4 @@ logs
 *.swo
 *.swp
 *.cache
-.DS_Store
 build
