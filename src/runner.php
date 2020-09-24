@@ -6,23 +6,8 @@ use Docopt;
 
 use function Biserg\Gendiff\Generator\generateDiff;
 
-function run()
+function run($filePath1, $filePath2, $format)
 {
-    $doc = <<<DOC
-	Generate diff
-	Usage:
-	  gendiff (-h|--help)
-	  gendiff [--format <fmt>] <firstFile> <secondFile>
-	Options:
-	  -h --help                     Show this screen
-	  --format <fmt>                Report format [default: basic]
-	DOC;
-
-    $args = Docopt::handle($doc);
-    $filePath1 = $args['<firstFile>'];
-    $filePath2 = $args['<secondFile>'];
-    $format = $args['--format'];
-        
     $result = generateDiff($filePath1, $filePath2, $format);
     echo $result;
 }

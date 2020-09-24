@@ -4,9 +4,7 @@ namespace Biserg\Gendiff\Generator;
 
 use function Biserg\Gendiff\Parser\parse;
 use function Biserg\Gendiff\DiffBuilder\buildDiff;
-use function Biserg\Gendiff\Formatters\BasicFormat\getOutputInBasicFormat;
-use function Biserg\Gendiff\Formatters\PlainFormat\getOutputInPlainFormat;
-use function Biserg\Gendiff\Formatters\JsonFormat\getOutputInJsonFormat;
+use function Biserg\Gendiff\Formatters\Formater\format;
 
 function generateDiff($filePath1, $filePath2, $format = 'basic')
 {
@@ -19,18 +17,3 @@ function generateDiff($filePath1, $filePath2, $format = 'basic')
     return format($diff, $format);
 }
 
-function format($diff, $format)
-{
-    $ways = [
-        'basic' => function ($diff) {
-            return getOutputInBasicFormat($diff);
-        },
-        'plain' => function ($diff) {
-            return getOutputInPlainFormat($diff);
-        },
-        'json' => function ($diff) {
-            return getOutputInJsonFormat($diff);
-        }
-    ];
-    return $ways[$format]($diff);
-}

@@ -21,7 +21,8 @@
             "src/SubFunctions/subFunctions.php",
             "src/Formatters/basicFormat.php",
             "src/Formatters/plainFormat.php",
-            "src/Formatters/jsonFormat.php"
+            "src/Formatters/jsonFormat.php",
+            "src/Formatters/formater.php"
         ]
     },
     "require": {
