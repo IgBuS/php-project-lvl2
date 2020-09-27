@@ -65,6 +65,10 @@ function prepareValueToOutput($value, $depth)
     if (is_array($value)) {
         return prepareArrayToOutput($value, $depth);
     }
+    if (is_object($value)) {
+        $value = get_object_vars($value);
+        return prepareArrayToOutput($value, $depth);
+    }
     return $value;
 }
 

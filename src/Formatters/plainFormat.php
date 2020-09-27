@@ -49,7 +49,7 @@ function transformValueToOutputFormat($value)
     if (is_bool($value)) {
         return convertBoolToString($value);
     }
-    if (is_array($value)) {
+    if (is_array($value) || is_object($value)) {
         return '[complex value]';
     }
     return "'{$value}'";
