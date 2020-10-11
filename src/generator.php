@@ -10,12 +10,10 @@ const AVALIABLE_FORMATS = ['json', 'yaml', 'yml', ];
 
 function generateDiff($filePath1, $filePath2, $format = 'basic')
 {
-    if (file_exists($filePath1) && file_exists($filePath1)) {
-        $rawDataBefore = file_get_contents($filePath1);
-        $rawDataAfter = file_get_contents($filePath2);
-    } else {
-        throw new Exception("One of files or both of them do not exist");
-    }
+
+    $rawDataBefore = getFileData($filePath1);
+    $rawDataAfter = getFileData($filePath2);
+
 
     $firstFileExt = pathinfo($filePath1, PATHINFO_EXTENSION);
     $secondFileExt = pathinfo($filePath2, PATHINFO_EXTENSION);
@@ -29,4 +27,13 @@ function generateDiff($filePath1, $filePath2, $format = 'basic')
     $diff = buildDiff($parsedDataBefore, $parsedDataAfter);
     
     return format($diff, $format);
+}
+
+function getFileData($filePath)
+{
+    if (!file_exists($filePath)) {
+        throw new \Exception("File '$filepath' does not exist");
+    } else {
+        return file_get_contents($filePath);
+    }
 }
