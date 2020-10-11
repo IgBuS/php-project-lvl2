@@ -33,21 +33,21 @@ class UserTest extends TestCase
     {
         return [
             "basicYamlDiff" => [
-                "tests_fixtures_file1.yaml",
-                "tests_fixtures_file2.yaml",
-                "expRecursiveDiff",
+                "file1.yaml",
+                "file2.yaml",
+                "diff.stylish",
                 "basic"
             ],
             "plainRecursiveJson" => [
-                "recursiveBefore.json",
-                "recursiveAfter.json",
-                "expRecursiveDiffPlain",
+                "file1.json",
+                "file2.json",
+                "diff.plain",
                 "plain"
             ],
             "jsonRecursiveJson" => [
-                "recursiveBefore.json",
-                "recursiveAfter.json",
-                "expRecursiveDiffJson",
+                "file1.json",
+                "file2.json",
+                "diff.json",
                 "json"
             ]
         ];
