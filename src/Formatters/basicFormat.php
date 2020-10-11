@@ -4,44 +4,48 @@ namespace Biserg\Gendiff\Formatters\BasicFormat;
 
 use function Biserg\Gendiff\SubFunctions\SubFunctions\convertBoolToString;
 
-function getOutputInBasicFormat($diff, $depth = 0)
+function getOutputInBasicFormat($diff)
 {
     $result = getOutput($diff);
     return "{\n{$result}\n}";
 }
 
-function getOutput($diff, $depth = 0)
+function getOutput($diff)
 {
-    $indent = str_repeat('    ', $depth);
-    $resultToPrint = array_reduce($diff, function ($acc, $item) use ($indent, $depth) {
-        switch ($item['type']) {
-            case 'unchanged':
-                $value = prepareValueToOutput($item['value'], $depth);
-                $acc[] = ['sort' => $item['key'], 'result' => "{$indent}    {$item['key']}: {$value}"];
-                break;
-            case 'changed':
-                $oldValue = prepareValueToOutput($item['oldValue'], $depth);
-                $newValue = prepareValueToOutput($item['newValue'], $depth);
-                $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  - {$item['key']}: {$oldValue}"];
-                $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  + {$item['key']}: {$newValue}"];
-                break;
-            case 'deleted':
-                $value = prepareValueToOutput($item['value'], $depth);
-                $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  - {$item['key']}: {$value}"];
-                break;
-            case 'added':
-                $value = prepareValueToOutput($item['value'], $depth);
-                $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  + {$item['key']}: {$value}"];
-                break;
-            case 'nested':
-                $children = getOutput($item['children'], $depth + 1);
-                $acc[] = ['sort' => $item['key'],
-                'result' => "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}"];
-                break;
-        }
-        return $acc;
-    }, []);
-    return prepareToOutput($resultToPrint);
+    function iter($diff, $depth = 0)
+    {
+        $indent = str_repeat('    ', $depth);
+        $resultToPrint = array_reduce($diff, function ($acc, $item) use ($indent, $depth) {
+            switch ($item['type']) {
+                case 'unchanged':
+                    $value = prepareValueToOutput($item['value'], $depth);
+                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}    {$item['key']}: {$value}"];
+                    break;
+                case 'changed':
+                    $oldValue = prepareValueToOutput($item['oldValue'], $depth);
+                    $newValue = prepareValueToOutput($item['newValue'], $depth);
+                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  - {$item['key']}: {$oldValue}"];
+                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  + {$item['key']}: {$newValue}"];
+                    break;
+                case 'deleted':
+                    $value = prepareValueToOutput($item['value'], $depth);
+                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  - {$item['key']}: {$value}"];
+                    break;
+                case 'added':
+                    $value = prepareValueToOutput($item['value'], $depth);
+                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  + {$item['key']}: {$value}"];
+                    break;
+                case 'nested':
+                    $children = iter($item['children'], $depth + 1);
+                    $acc[] = ['sort' => $item['key'],
+                    'result' => "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}"];
+                    break;
+            }
+            return $acc;
+        }, []);
+        return prepareToOutput($resultToPrint);
+    }
+    return iter($diff);
 }
 
 function prepareToOutput($resultToPrint)

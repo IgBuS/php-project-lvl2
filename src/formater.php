@@ -19,5 +19,10 @@ function format($diff, $format)
             return getOutputInJsonFormat($diff);
         }
     ];
-    return $ways[$format]($diff);
+
+    if (array_key_exists($format, $ways)) {
+        return $ways[$format]($diff);
+    } else {
+        throw new \Exception("Format '$format' is not supported");
+    }
 }
