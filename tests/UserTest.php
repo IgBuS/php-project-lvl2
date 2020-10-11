@@ -53,13 +53,8 @@ class UserTest extends TestCase
 
     public function getFilePath($fileName)
     {
-        $pathContainer = [
-            'basisDIR' => __DIR__,
-            'fixtures' => 'fixtures',
-            'fileName' => $fileName
-        ];
-        $rowPath = implode(DIRECTORY_SEPARATOR, $pathContainer);
-        $resultPath = realpath($rowPath);
+        $parts = [__DIR__, 'fixtures', $fileName];
+        $resultPath = realpath(implode(DIRECTORY_SEPARATOR, $parts));
         return $resultPath;
     }
 }

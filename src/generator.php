@@ -6,8 +6,6 @@ use function Biserg\Gendiff\Parser\parse;
 use function Biserg\Gendiff\DiffBuilder\buildDiff;
 use function Biserg\Gendiff\Formatters\Formater\format;
 
-const AVALIABLE_FORMATS = ['json', 'yaml', 'yml', ];
-
 function generateDiff($filePath1, $filePath2, $formatName = 'basic')
 {
 

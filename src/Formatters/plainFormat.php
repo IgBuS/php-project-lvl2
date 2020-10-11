@@ -27,7 +27,7 @@ function getOutput($diff, $level = null)
                 $value = transformValueToOutputFormat($item['value']);
                 $acc[] = "Property '{$level}' was added with value: {$value}";
                 break;
-            case 'parent':
+            case 'nested':
                 $children = getOutput($item['children'], $level);
                 $acc[] = $children;
                 break;

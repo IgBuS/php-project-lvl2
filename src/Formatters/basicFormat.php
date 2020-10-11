@@ -33,7 +33,7 @@ function getOutput($diff, $depth = 0)
                 $value = prepareValueToOutput($item['value'], $depth);
                 $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  + {$item['key']}: {$value}"];
                 break;
-            case 'parent':
+            case 'nested':
                 $children = getOutput($item['children'], $depth + 1);
                 $acc[] = ['sort' => $item['key'],
                 'result' => "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}"];

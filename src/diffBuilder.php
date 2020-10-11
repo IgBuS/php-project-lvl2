@@ -26,7 +26,7 @@ function getTypes($key, $before, $after)
         return ['type' => 'deleted', 'key' => $key, 'value' => $before[$key]];
     }
     if (is_object($before[$key]) && is_object($after[$key])) {
-        return ['type' => 'parent', 'key' => $key, 'children' => buildDiff($before[$key], $after[$key])];
+        return ['type' => 'nested', 'key' => $key, 'children' => buildDiff($before[$key], $after[$key])];
     }
 
     if ($before[$key] === $after[$key]) {
