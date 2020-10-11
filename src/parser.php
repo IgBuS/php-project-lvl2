@@ -25,6 +25,4 @@ function parse($filePath, $data)
     } else {
         throw new \Exception("Extention '$fileExt' of '$filePath' file is not suported");
     }
-
-
 }
