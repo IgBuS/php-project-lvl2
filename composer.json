@@ -9,9 +9,6 @@
             "email": "i.b@msulab.ru"
         }
     ],
-    "scripts": {
-        "test": "phpunit tests"
-      },
     "autoload": {
         "files": [
             "src/runner.php",
