@@ -6,8 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 use function Biserg\Gendiff\Generator\generateDiff;
 
-const DIRECTORY_SEPARATOR = "/";
-
 class UserTest extends TestCase
 {
     /**
