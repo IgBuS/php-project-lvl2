@@ -20,11 +20,11 @@ Usage:
   gendiff [--format <fmt>] <firstFile> <secondFile>
 Options:
   -h --help                     Show this screen
-  -v --version                  Shows version
+  -v --version                  Show version
   --format <fmt>                Report format [default: basic]
 DOC;
 
-$args = Docopt::handle($doc);
+$args = Docopt::handle($doc, array('version'=>'1.3'));
 $filePath1 = $args['<firstFile>'];
 $filePath2 = $args['<secondFile>'];
 $format = $args['--format'];
