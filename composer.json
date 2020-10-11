@@ -18,7 +18,7 @@
             "src/Formatters/basicFormat.php",
             "src/Formatters/plainFormat.php",
             "src/Formatters/jsonFormat.php",
-            "src/Formatters/formater.php"
+            "src/formater.php"
         ]
     },
     "require": {

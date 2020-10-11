@@ -1,6 +1,6 @@
 <?php
 
-namespace Biserg\Gendiff\Formatters\Formater;
+namespace Biserg\Gendiff\Formater;
 
 use function Biserg\Gendiff\Formatters\BasicFormat\getOutputInBasicFormat;
 use function Biserg\Gendiff\Formatters\PlainFormat\getOutputInPlainFormat;

@@ -4,7 +4,7 @@ namespace Biserg\Gendiff\Generator;
 
 use function Biserg\Gendiff\Parser\parse;
 use function Biserg\Gendiff\DiffBuilder\buildDiff;
-use function Biserg\Gendiff\Formatters\Formater\format;
+use function Biserg\Gendiff\Formater\format;
 
 function generateDiff($filePath1, $filePath2, $formatName = 'basic')
 {
