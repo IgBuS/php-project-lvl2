@@ -2,8 +2,6 @@
 
 namespace Biserg\Gendiff\Formatters\BasicFormat;
 
-use function Biserg\Gendiff\SubFunctions\SubFunctions\convertBoolToString;
-
 function getOutputInBasicFormat($diff)
 {
     $result = getOutput($diff);
@@ -64,7 +62,7 @@ function prepareToOutput($resultToPrint)
 function stringify($value, $depth)
 {
     if (is_bool($value)) {
-        return convertBoolToString($value);
+        return $value ? 'true' : 'false';
     }
     if (is_array($value)) {
         return prepareArrayToOutput($value, $depth);
