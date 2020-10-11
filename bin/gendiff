@@ -10,7 +10,7 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-use function Biserg\Gendiff\Runner\run;
+use function Biserg\Gendiff\Generator\generateDiff;
 
 $doc = <<<DOC
 Generate diff
@@ -29,5 +29,5 @@ $filePath1 = $args['<firstFile>'];
 $filePath2 = $args['<secondFile>'];
 $format = $args['--format'];
 
-run($filePath1, $filePath2, $format);
+generateDiff($filePath1, $filePath2, $format);
 ?>
