@@ -13,50 +13,36 @@ function getOutput($diff)
     function iter($diff, $depth = 0)
     {
         $indent = str_repeat('    ', $depth);
-        $resultToPrint = array_reduce($diff, function ($acc, $item) use ($indent, $depth) {
+        $resultToPrint = array_map(function ($item) use ($indent, $depth) {
             switch ($item['type']) {
                 case 'unchanged':
                     $value = stringify($item['value'], $depth);
-                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}    {$item['key']}: {$value}"];
+                    $acc = "{$indent}    {$item['key']}: {$value}";
                     break;
                 case 'changed':
                     $oldValue = stringify($item['oldValue'], $depth);
                     $newValue = stringify($item['newValue'], $depth);
-                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  - {$item['key']}: {$oldValue}"];
-                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  + {$item['key']}: {$newValue}"];
+                    $acc = "{$indent}  - {$item['key']}: {$oldValue}\n{$indent}  + {$item['key']}: {$newValue}";
                     break;
                 case 'deleted':
                     $value = stringify($item['value'], $depth);
-                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  - {$item['key']}: {$value}"];
+                    $acc = "{$indent}  - {$item['key']}: {$value}";
                     break;
                 case 'added':
                     $value = stringify($item['value'], $depth);
-                    $acc[] = ['sort' => $item['key'], 'result' => "{$indent}  + {$item['key']}: {$value}"];
+                    $acc = "{$indent}  + {$item['key']}: {$value}";
                     break;
                 case 'nested':
                     $children = iter($item['children'], $depth + 1);
-                    $acc[] = ['sort' => $item['key'],
-                    'result' => "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}"];
+                    $acc = "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}";
                     break;
             }
             return $acc;
-        }, []);
-        return prepareToOutput($resultToPrint);
+        }, $diff);
+        $resultToPrint = implode("\n", $resultToPrint);
+        return "{$resultToPrint}";
     }
     return iter($diff);
-}
-
-function prepareToOutput($resultToPrint)
-{
-    usort($resultToPrint, function ($a, $b) {
-        return strcmp($a["sort"], $b["sort"]);
-    });
-    $result = array_reduce($resultToPrint, function ($acc, $item) {
-        $acc[] = $item['result'];
-        return $acc;
-    }, []);
-    $result = implode("\n", $result);
-    return "{$result}";
 }
 
 function stringify($value, $depth)
