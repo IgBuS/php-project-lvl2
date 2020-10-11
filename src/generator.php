@@ -8,7 +8,7 @@ use function Biserg\Gendiff\Formatters\Formater\format;
 
 const AVALIABLE_FORMATS = ['json', 'yaml', 'yml', ];
 
-function generateDiff($filePath1, $filePath2, $format = 'basic')
+function generateDiff($filePath1, $filePath2, $formatName = 'basic')
 {
 
     $rawDataBefore = getFileData($filePath1);
@@ -19,7 +19,7 @@ function generateDiff($filePath1, $filePath2, $format = 'basic')
 
     $diff = buildDiff($parsedDataBefore, $parsedDataAfter);
     
-    return format($diff, $format);
+    return format($diff, $formatName);
 }
 
 function getFileData($filePath)
