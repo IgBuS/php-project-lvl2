@@ -14,15 +14,8 @@ function generateDiff($filePath1, $filePath2, $format = 'basic')
     $rawDataBefore = getFileData($filePath1);
     $rawDataAfter = getFileData($filePath2);
 
-
-    $firstFileExt = pathinfo($filePath1, PATHINFO_EXTENSION);
-    $secondFileExt = pathinfo($filePath2, PATHINFO_EXTENSION);
-    if (in_array($firstFileExt, AVALIABLE_FORMATS) && in_array($secondFileExt, AVALIABLE_FORMATS)) {
-        $parsedDataBefore = parse($rawDataBefore, $firstFileExt);
-        $parsedDataAfter = parse($rawDataAfter, $secondFileExt);
-    } else {
-        throw new Exception("Extention of one or both files is not suported");
-    }
+    $parsedDataBefore = parse($filePath1, $rawDataBefore);
+    $parsedDataAfter = parse($filePath2, $rawDataAfter);
 
     $diff = buildDiff($parsedDataBefore, $parsedDataAfter);
     

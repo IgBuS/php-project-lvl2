@@ -4,8 +4,10 @@ namespace Biserg\Gendiff\Parser;
 
 use Symfony\Component\Yaml\Yaml;
 
-function parse($data, $fileType)
+function parse($filePath, $data)
 {
+    $fileExt = pathinfo($filePath, PATHINFO_EXTENSION);
+
     $result = [
         "json" => function ($data) {
             return json_decode($data);
@@ -17,5 +19,12 @@ function parse($data, $fileType)
             return Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP);
         }
     ];
-    return $result[$fileType]($data);
+
+    if (array_key_exists($fileExt, $result)) {
+        return $result[$fileExt]($data);
+    } else {
+        throw new \Exception("Extention '$fileExt' of '$filePath' file is not suported");
+    }
+
+
 }
