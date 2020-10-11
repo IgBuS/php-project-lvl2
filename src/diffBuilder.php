@@ -9,11 +9,11 @@ function buildDiff($parsedDataBefore, $parsedDataAfter)
     $parsedDataBefore = get_object_vars($parsedDataBefore);
     $parsedDataAfter = get_object_vars($parsedDataAfter);
     $keys = Collection\union(array_keys($parsedDataBefore), array_keys($parsedDataAfter));
-    $diff = array_reduce($keys, function ($acc, $key) use ($parsedDataBefore, $parsedDataAfter) {
-        $acc[] = getTypes($key, $parsedDataBefore, $parsedDataAfter);
+    $diff = array_map(function ($key) use ($parsedDataBefore, $parsedDataAfter) {
+        $acc = getTypes($key, $parsedDataBefore, $parsedDataAfter);
         return $acc;
-    });
-    return $diff;
+    }, $keys);
+    return array_values($diff);
 }
 
 function getTypes($key, $before, $after)
