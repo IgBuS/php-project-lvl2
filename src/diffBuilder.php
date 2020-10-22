@@ -4,14 +4,14 @@ namespace Biserg\Gendiff\DiffBuilder;
 
 use Funct\Collection;
 
-function buildDiff($parsedDataBefore, $parsedDataAfter)
+function buildDiff($dataBefore, $dataAfter)
 {
-    $parsedDataBefore = get_object_vars($parsedDataBefore);
-    $parsedDataAfter = get_object_vars($parsedDataAfter);
-    $keys = Collection\union(array_keys($parsedDataBefore), array_keys($parsedDataAfter));
+    $dataBefore = get_object_vars($dataBefore);
+    $dataAfter = get_object_vars($dataAfter);
+    $keys = Collection\union(array_keys($dataBefore), array_keys($dataAfter));
     sort($keys);
-    $diff = array_map(function ($key) use ($parsedDataBefore, $parsedDataAfter) {
-        $acc = getTypes($key, $parsedDataBefore, $parsedDataAfter);
+    $diff = array_map(function ($key) use ($dataBefore, $dataAfter) {
+        $acc = getTypes($key, $dataBefore, $dataAfter);
         return $acc;
     }, $keys);
     return array_values($diff);
