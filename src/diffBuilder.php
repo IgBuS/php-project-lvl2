@@ -9,11 +9,11 @@ function buildDiff($dataBefore, $dataAfter)
     $dataBefore = get_object_vars($dataBefore);
     $dataAfter = get_object_vars($dataAfter);
     $keys = Collection\union(array_keys($dataBefore), array_keys($dataAfter));
-    sort($keys);
+    $sortedKeys = Collection\sortBy($keys, fn($key) => $key);
     $diff = array_map(function ($key) use ($dataBefore, $dataAfter) {
         $acc = getTypes($key, $dataBefore, $dataAfter);
         return $acc;
-    }, $keys);
+    }, $sortedKeys);
     return array_values($diff);
 }
 
