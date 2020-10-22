@@ -24,7 +24,6 @@ function getFileData($filePath)
 {
     if (!file_exists($filePath)) {
         throw new \Exception("File '$filepath' does not exist");
-    } else {
-        return file_get_contents($filePath);
     }
+    return file_get_contents($filePath);
 }
