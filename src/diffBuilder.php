@@ -11,26 +11,19 @@ function buildDiff($dataBefore, $dataAfter)
     $keys = Collection\union(array_keys($dataBefore), array_keys($dataAfter));
     $sortedKeys = Collection\sortBy($keys, fn($key) => $key);
     $diff = array_map(function ($key) use ($dataBefore, $dataAfter) {
-        $acc = getTypes($key, $dataBefore, $dataAfter);
-        return $acc;
+        if (!array_key_exists($key, $dataBefore)) {
+            return ['key' => $key, 'type' => 'added', 'value' => $dataAfter[$key]];
+        }
+        if (!array_key_exists($key, $dataAfter)) {
+            return ['key' => $key, 'type' => 'deleted', 'value' => $dataBefore[$key]];
+        }
+        if (is_object($dataBefore[$key]) && is_object($dataAfter[$key])) {
+            return ['key' => $key, 'type' => 'nested', 'children' => buildDiff($dataBefore[$key], $dataAfter[$key])];
+        }
+        if ($dataBefore[$key] === $dataAfter[$key]) {
+            return ['key' => $key, 'type' => 'unchanged', 'value' => $dataBefore[$key]];
+        }
+        return ['key' => $key, 'type' => 'changed', 'oldValue' => $dataBefore[$key], 'newValue' => $dataAfter[$key]];
     }, $sortedKeys);
     return array_values($diff);
-}
-
-function getTypes($key, $before, $after)
-{
-
-    if (!array_key_exists($key, $before)) {
-        return ['key' => $key, 'type' => 'added', 'value' => $after[$key]];
-    }
-    if (!array_key_exists($key, $after)) {
-        return ['key' => $key, 'type' => 'deleted', 'value' => $before[$key]];
-    }
-    if (is_object($before[$key]) && is_object($after[$key])) {
-        return ['key' => $key, 'type' => 'nested', 'children' => buildDiff($before[$key], $after[$key])];
-    }
-    if ($before[$key] === $after[$key]) {
-        return ['key' => $key, 'type' => 'unchanged', 'value' => $before[$key]];
-    }
-    return ['key' => $key, 'type' => 'changed', 'oldValue' => $before[$key], 'newValue' => $after[$key]];
 }
