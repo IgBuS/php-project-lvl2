@@ -12,8 +12,8 @@ function generateDiff($filePath1, $filePath2, $formatName = 'basic')
     $rawDataBefore = getFileData($filePath1);
     $rawDataAfter = getFileData($filePath2);
 
-    $parsedDataBefore = parse($filePath1, $rawDataBefore);
-    $parsedDataAfter = parse($filePath2, $rawDataAfter);
+    $parsedDataBefore = parse($rawDataBefore);
+    $parsedDataAfter = parse($rawDataAfter);
 
     $diff = buildDiff($parsedDataBefore, $parsedDataAfter);
     
@@ -25,5 +25,9 @@ function getFileData($filePath)
     if (!file_exists($filePath)) {
         throw new \Exception("File '$filepath' does not exist");
     }
-    return file_get_contents($filePath);
+    $result = [
+        'content' => file_get_contents($filePath),
+        'extention' => pathinfo($filePath, PATHINFO_EXTENSION)
+    ];
+    return $result;
 }
