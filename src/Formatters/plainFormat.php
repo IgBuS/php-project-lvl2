@@ -4,10 +4,10 @@ namespace Biserg\Gendiff\Formatters\Plain;
 
 function render($diff)
 {
-    return getOutput($diff);
+    return iter($diff);
 }
 
-function getOutput($diff, $level = null)
+function iter($diff, $level = null)
 {
     $resultToPrint = array_reduce($diff, function ($acc, $item) use ($level) {
         $level === null ? $level = "{$item['key']}" : $level = "{$level}.{$item['key']}";
@@ -26,7 +26,7 @@ function getOutput($diff, $level = null)
                 $acc[] = "Property '{$level}' was added with value: {$value}";
                 break;
             case 'nested':
-                $children = getOutput($item['children'], $level);
+                $children = iter($item['children'], $level);
                 $acc[] = $children;
                 break;
         }
