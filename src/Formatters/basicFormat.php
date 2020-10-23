@@ -52,7 +52,7 @@ function stringify($value, $depth)
         return 'null';
     }
     if (is_array($value)) {
-        return prepareArrayToOutput($value, $depth);
+        return implode("\n", $value);
     }
     if (is_object($value)) {
         $value = get_object_vars($value);
