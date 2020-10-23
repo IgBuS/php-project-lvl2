@@ -18,26 +18,29 @@ function getOutput($diff)
                 case 'unchanged':
                     $value = stringify($item['value'], $depth);
                     $acc = "{$indent}    {$item['key']}: {$value}";
-                    break;
+                    return $acc;
                 case 'changed':
                     $oldValue = stringify($item['oldValue'], $depth);
                     $newValue = stringify($item['newValue'], $depth);
-                    $acc = "{$indent}  - {$item['key']}: {$oldValue}\n{$indent}  + {$item['key']}: {$newValue}";
-                    break;
+                    $lines = [
+                        "{$indent}  - {$item['key']}: {$oldValue}",
+                        "{$indent}  + {$item['key']}: {$newValue}"
+                    ];
+                    $acc = implode("\n", $lines);
+                    return $acc;
                 case 'deleted':
                     $value = stringify($item['value'], $depth);
                     $acc = "{$indent}  - {$item['key']}: {$value}";
-                    break;
+                    return $acc;
                 case 'added':
                     $value = stringify($item['value'], $depth);
                     $acc = "{$indent}  + {$item['key']}: {$value}";
-                    break;
+                    return $acc;
                 case 'nested':
                     $children = iter($item['children'], $depth + 1);
                     $acc = "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}";
-                    break;
+                    return $acc;
             }
-            return $acc;
         }, $diff);
         $resultToPrint = implode("\n", $resultToPrint);
         return "{$resultToPrint}";
