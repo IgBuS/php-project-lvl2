@@ -69,6 +69,6 @@ function prepareArrayToOutput($array, $depth)
         $value = stringify($array[$key], $depth + 1);
         return "{$indent}    {$key}: {$value}";
     }, $keys);
-    $result = implode(PHP_EOL, $values);
+    $result = implode("\n", $values);
     return "{\n{$result}\n{$indent}}";
 }
