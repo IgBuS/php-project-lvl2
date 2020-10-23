@@ -2,37 +2,43 @@
 
 namespace Biserg\Gendiff\Formatters\Plain;
 
+use Funct\Collection;
+
 function render($diff)
 {
-    return iter($diff);
+    $mapped = iter($diff);
+    $flattened = Collection\flattenAll($mapped);
+    $compacted = Collection\compact($flattened);
+    return implode("\n", $compacted);
 }
 
 function iter($diff, $level = null)
 {
-    $resultToPrint = array_reduce($diff, function ($acc, $item) use ($level) {
+    $resultToPrint = array_map(function ($item) use ($level) {
         $level === null ? $level = "{$item['key']}" : $level = "{$level}.{$item['key']}";
         switch ($item['type']) {
             case 'changed':
                 $oldValue = transformValueToOutputFormat($item['oldValue']);
                 $newValue = transformValueToOutputFormat($item['newValue']);
-                $acc[] = "Property '{$level}' was updated. From {$oldValue} to {$newValue}";
-                break;
+                $acc = "Property '{$level}' was updated. From {$oldValue} to {$newValue}";
+                return $acc;
             case 'deleted':
                 $value = transformValueToOutputFormat($item['value']);
-                $acc[] = "Property '{$level}' was removed";
-                break;
+                $acc = "Property '{$level}' was removed";
+                return $acc;
             case 'added':
                 $value = transformValueToOutputFormat($item['value']);
-                $acc[] = "Property '{$level}' was added with value: {$value}";
-                break;
+                $acc = "Property '{$level}' was added with value: {$value}";
+                return $acc;
             case 'nested':
                 $children = iter($item['children'], $level);
-                $acc[] = $children;
+                $acc = $children;
+                return $acc;
+            default:
                 break;
         }
-        return $acc;
-    }, []);
-    return prepareToOutput($resultToPrint);
+    }, $diff);
+    return $resultToPrint;
 }
 
 function prepareToOutput($resultToPrint)
