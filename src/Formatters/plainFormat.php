@@ -12,26 +12,26 @@ function render($diff)
     return implode("\n", $compacted);
 }
 
-function iter($diff, $level = null)
+function iter($diff, $ancestry = null)
 {
-    $mapped = array_map(function ($item) use ($level) {
-        $level === null ? $level = "{$item['key']}" : $level = "{$level}.{$item['key']}";
+    $mapped = array_map(function ($item) use ($ancestry) {
+        $ancestry === null ? $ancestry = "{$item['key']}" : $ancestry = "{$ancestry}.{$item['key']}";
         switch ($item['type']) {
             case 'changed':
                 $oldValue = stringify($item['oldValue']);
                 $newValue = stringify($item['newValue']);
-                $acc = "Property '{$level}' was updated. From {$oldValue} to {$newValue}";
+                $acc = "Property '{$ancestry}' was updated. From {$oldValue} to {$newValue}";
                 return $acc;
             case 'deleted':
                 $value = stringify($item['value']);
-                $acc = "Property '{$level}' was removed";
+                $acc = "Property '{$ancestry}' was removed";
                 return $acc;
             case 'added':
                 $value = stringify($item['value']);
-                $acc = "Property '{$level}' was added with value: {$value}";
+                $acc = "Property '{$ancestry}' was added with value: {$value}";
                 return $acc;
             case 'nested':
-                $children = iter($item['children'], $level);
+                $children = iter($item['children'], $ancestry);
                 $acc = $children;
                 return $acc;
             default:
