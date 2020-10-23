@@ -38,6 +38,8 @@ function iter($diff, $depth = 0)
                 $children = iter($item['children'], $depth + 1);
                 $acc = "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}";
                 return $acc;
+            default:
+                throw new \Exception("Node" . $item['type'] . "is not supported");
         }
     }, $diff);
     return implode("\n", $mapped);
