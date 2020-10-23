@@ -18,9 +18,8 @@ function parse($data)
         }
     ];
 
-    if (array_key_exists($data['extention'], $result)) {
-        return $result[$data['extention']]($data);
-    } else {
+    if (!array_key_exists($data['extention'], $result)) {
         throw new \Exception("Extention" . $data['extention'] . "of file is not suported");
     }
+    return $result[$data['extention']]($data);
 }
