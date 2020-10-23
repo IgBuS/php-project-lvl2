@@ -10,7 +10,7 @@ function render($diff)
 
 function iter($diff, $depth = 0)
 {
-    $resultToPrint = array_map(function ($item) use ($depth) {
+    $mapped = array_map(function ($item) use ($depth) {
         $indent = str_repeat('    ', $depth);
         switch ($item['type']) {
             case 'unchanged':
@@ -40,8 +40,8 @@ function iter($diff, $depth = 0)
                 return $acc;
         }
     }, $diff);
-    $resultToPrint = implode("\n", $resultToPrint);
-    return "{$resultToPrint}";
+    $mapped = implode("\n", $mapped);
+    return "{$mapped}";
 }
 
 function stringify($value, $depth)
