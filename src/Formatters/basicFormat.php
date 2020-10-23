@@ -65,11 +65,10 @@ function prepareArrayToOutput($array, $depth)
 {
     $indent = str_repeat('    ', $depth + 1);
     $keys = array_keys($array);
-    $values = array_reduce($keys, function ($acc, $key) use ($array, $indent, $depth) {
+    $values = array_map(function ($key) use ($array, $depth, $indent) {
         $value = stringify($array[$key], $depth + 1);
-        $acc[] = "{$indent}    {$key}: {$value}";
-        return $acc;
-    });
+        return "{$indent}    {$key}: {$value}";
+    }, $keys);
     $result = implode(PHP_EOL, $values);
     return "{\n{$result}\n{$indent}}";
 }
