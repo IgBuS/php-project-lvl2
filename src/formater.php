@@ -20,9 +20,8 @@ function format($diff, $format)
         }
     ];
 
-    if (array_key_exists($format, $ways)) {
-        return $ways[$format]($diff);
-    } else {
+    if (!array_key_exists($format, $ways)) {
         throw new \Exception("Format '$format' is not supported");
     }
+    return $ways[$format]($diff);
 }
