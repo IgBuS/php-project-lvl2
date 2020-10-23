@@ -41,13 +41,6 @@ function iter($diff, $level = null)
     return $resultToPrint;
 }
 
-function prepareToOutput($resultToPrint)
-{
-    sort($resultToPrint);
-    $result = implode("\n", $resultToPrint);
-    return $result;
-}
-
 function transformValueToOutputFormat($value)
 {
     if (is_bool($value)) {
