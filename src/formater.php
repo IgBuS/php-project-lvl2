@@ -8,7 +8,7 @@ use function Biserg\Gendiff\Formatters\JsonFormat\getOutputInJsonFormat;
 
 function format($diff, $format)
 {
-    $ways = [
+    $formatters = [
         'basic' => function ($diff) {
             return getOutputInBasicFormat($diff);
         },
@@ -20,8 +20,8 @@ function format($diff, $format)
         }
     ];
 
-    if (!array_key_exists($format, $ways)) {
+    if (!array_key_exists($format, $formatters)) {
         throw new \Exception("Format '$format' is not supported");
     }
-    return $ways[$format]($diff);
+    return $formatters[$format]($diff);
 }
