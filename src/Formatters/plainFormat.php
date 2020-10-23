@@ -1,8 +1,8 @@
 <?php
 
-namespace Biserg\Gendiff\Formatters\PlainFormat;
+namespace Biserg\Gendiff\Formatters\Plain;
 
-function getOutputInPlainFormat($diff)
+function render($diff)
 {
     return getOutput($diff);
 }

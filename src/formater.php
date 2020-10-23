@@ -2,21 +2,21 @@
 
 namespace Biserg\Gendiff\Formater;
 
-use function Biserg\Gendiff\Formatters\BasicFormat\getOutputInBasicFormat;
-use function Biserg\Gendiff\Formatters\PlainFormat\getOutputInPlainFormat;
-use function Biserg\Gendiff\Formatters\JsonFormat\getOutputInJsonFormat;
+use Biserg\Gendiff\Formatters\Basic;
+use Biserg\Gendiff\Formatters\Plain;
+use Biserg\Gendiff\Formatters\Json;
 
 function format($diff, $format)
 {
     $formatters = [
         'basic' => function ($diff) {
-            return getOutputInBasicFormat($diff);
+            return Basic\render($diff);
         },
         'plain' => function ($diff) {
-            return getOutputInPlainFormat($diff);
+            return Plain\render($diff);
         },
         'json' => function ($diff) {
-            return getOutputInJsonFormat($diff);
+            return Json\render($diff);
         }
     ];
 
