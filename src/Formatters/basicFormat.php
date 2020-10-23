@@ -4,48 +4,44 @@ namespace Biserg\Gendiff\Formatters\Basic;
 
 function render($diff)
 {
-    $result = getOutput($diff);
+    $result = iter($diff);
     return "{\n{$result}\n}";
 }
 
-function getOutput($diff)
+function iter($diff, $depth = 0)
 {
-    function iter($diff, $depth = 0)
-    {
-        $resultToPrint = array_map(function ($item) use ($depth) {
-            $indent = str_repeat('    ', $depth);
-            switch ($item['type']) {
-                case 'unchanged':
-                    $value = stringify($item['value'], $depth);
-                    $acc = "{$indent}    {$item['key']}: {$value}";
-                    return $acc;
-                case 'changed':
-                    $oldValue = stringify($item['oldValue'], $depth);
-                    $newValue = stringify($item['newValue'], $depth);
-                    $lines = [
-                        "{$indent}  - {$item['key']}: {$oldValue}",
-                        "{$indent}  + {$item['key']}: {$newValue}"
-                    ];
-                    $acc = implode("\n", $lines);
-                    return $acc;
-                case 'deleted':
-                    $value = stringify($item['value'], $depth);
-                    $acc = "{$indent}  - {$item['key']}: {$value}";
-                    return $acc;
-                case 'added':
-                    $value = stringify($item['value'], $depth);
-                    $acc = "{$indent}  + {$item['key']}: {$value}";
-                    return $acc;
-                case 'nested':
-                    $children = iter($item['children'], $depth + 1);
-                    $acc = "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}";
-                    return $acc;
-            }
-        }, $diff);
-        $resultToPrint = implode("\n", $resultToPrint);
-        return "{$resultToPrint}";
-    }
-    return iter($diff);
+    $resultToPrint = array_map(function ($item) use ($depth) {
+        $indent = str_repeat('    ', $depth);
+        switch ($item['type']) {
+            case 'unchanged':
+                $value = stringify($item['value'], $depth);
+                $acc = "{$indent}    {$item['key']}: {$value}";
+                return $acc;
+            case 'changed':
+                $oldValue = stringify($item['oldValue'], $depth);
+                $newValue = stringify($item['newValue'], $depth);
+                $lines = [
+                    "{$indent}  - {$item['key']}: {$oldValue}",
+                    "{$indent}  + {$item['key']}: {$newValue}"
+                ];
+                $acc = implode("\n", $lines);
+                return $acc;
+            case 'deleted':
+                $value = stringify($item['value'], $depth);
+                $acc = "{$indent}  - {$item['key']}: {$value}";
+                return $acc;
+            case 'added':
+                $value = stringify($item['value'], $depth);
+                $acc = "{$indent}  + {$item['key']}: {$value}";
+                return $acc;
+            case 'nested':
+                $children = iter($item['children'], $depth + 1);
+                $acc = "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}";
+                return $acc;
+        }
+    }, $diff);
+    $resultToPrint = implode("\n", $resultToPrint);
+    return "{$resultToPrint}";
 }
 
 function stringify($value, $depth)
