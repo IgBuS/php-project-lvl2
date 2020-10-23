@@ -12,8 +12,8 @@ function getOutput($diff)
 {
     function iter($diff, $depth = 0)
     {
-        $indent = str_repeat('    ', $depth);
-        $resultToPrint = array_map(function ($item) use ($indent, $depth) {
+        $resultToPrint = array_map(function ($item) use ($depth) {
+            $indent = str_repeat('    ', $depth);
             switch ($item['type']) {
                 case 'unchanged':
                     $value = stringify($item['value'], $depth);
