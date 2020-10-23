@@ -14,7 +14,7 @@ function render($diff)
 
 function iter($diff, $level = null)
 {
-    $resultToPrint = array_map(function ($item) use ($level) {
+    $mapped = array_map(function ($item) use ($level) {
         $level === null ? $level = "{$item['key']}" : $level = "{$level}.{$item['key']}";
         switch ($item['type']) {
             case 'changed':
@@ -38,7 +38,7 @@ function iter($diff, $level = null)
                 break;
         }
     }, $diff);
-    return $resultToPrint;
+    return $mapped;
 }
 
 function transformValueToOutputFormat($value)
