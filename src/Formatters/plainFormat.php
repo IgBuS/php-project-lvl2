@@ -18,16 +18,16 @@ function iter($diff, $level = null)
         $level === null ? $level = "{$item['key']}" : $level = "{$level}.{$item['key']}";
         switch ($item['type']) {
             case 'changed':
-                $oldValue = transformValueToOutputFormat($item['oldValue']);
-                $newValue = transformValueToOutputFormat($item['newValue']);
+                $oldValue = stringify($item['oldValue']);
+                $newValue = stringify($item['newValue']);
                 $acc = "Property '{$level}' was updated. From {$oldValue} to {$newValue}";
                 return $acc;
             case 'deleted':
-                $value = transformValueToOutputFormat($item['value']);
+                $value = stringify($item['value']);
                 $acc = "Property '{$level}' was removed";
                 return $acc;
             case 'added':
-                $value = transformValueToOutputFormat($item['value']);
+                $value = stringify($item['value']);
                 $acc = "Property '{$level}' was added with value: {$value}";
                 return $acc;
             case 'nested':
@@ -41,7 +41,7 @@ function iter($diff, $level = null)
     return $mapped;
 }
 
-function transformValueToOutputFormat($value)
+function stringify($value)
 {
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
