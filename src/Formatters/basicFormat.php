@@ -40,8 +40,7 @@ function iter($diff, $depth = 0)
                 return $acc;
         }
     }, $diff);
-    $mapped = implode("\n", $mapped);
-    return "{$mapped}";
+    return implode("\n", $mapped);
 }
 
 function stringify($value, $depth)
