@@ -9,7 +9,7 @@ function buildDiff($dataBefore, $dataAfter)
     $dataBefore = get_object_vars($dataBefore);
     $dataAfter = get_object_vars($dataAfter);
     $keys = Collection\union(array_keys($dataBefore), array_keys($dataAfter));
-    $sortedKeys = Collection\sortBy($keys, fn($key) => $key);
+    $sortedKeys = array_values(Collection\sortBy($keys, fn($key) => $key));
     $diff = array_map(function ($key) use ($dataBefore, $dataAfter) {
         if (!array_key_exists($key, $dataBefore)) {
             return ['key' => $key, 'type' => 'added', 'value' => $dataAfter[$key]];
@@ -25,5 +25,5 @@ function buildDiff($dataBefore, $dataAfter)
         }
         return ['key' => $key, 'type' => 'changed', 'oldValue' => $dataBefore[$key], 'newValue' => $dataAfter[$key]];
     }, $sortedKeys);
-    return array_values($diff);
+    return $diff;
 }

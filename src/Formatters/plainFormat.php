@@ -12,10 +12,10 @@ function render($diff)
     return implode("\n", $compacted);
 }
 
-function iter($diff, $ancestry = null)
+function iter($diff, $ancestry = "")
 {
     $mapped = array_map(function ($item) use ($ancestry) {
-        $ancestry === null ? $ancestry = "{$item['key']}" : $ancestry = "{$ancestry}.{$item['key']}";
+        $ancestry = ltrim("{$ancestry}.{$item['key']}", ".");
         switch ($item['type']) {
             case 'changed':
                 $oldValue = stringify($item['oldValue']);
@@ -34,8 +34,10 @@ function iter($diff, $ancestry = null)
                 $children = iter($item['children'], $ancestry);
                 $acc = $children;
                 return $acc;
-            default:
+            case 'unchanged':
                 break;
+            default:
+                throw new \Exception("Node" . $item['type'] . "is not supported");
         }
     }, $diff);
     return $mapped;
