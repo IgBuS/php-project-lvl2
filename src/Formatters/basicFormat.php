@@ -15,8 +15,8 @@ function iter($diff, $depth = 0)
         switch ($item['type']) {
             case 'unchanged':
                 $value = stringify($item['value'], $depth);
-                $acc = "{$indent}    {$item['key']}: {$value}";
-                return $acc;
+                $result = "{$indent}    {$item['key']}: {$value}";
+                return $result;
             case 'changed':
                 $oldValue = stringify($item['oldValue'], $depth);
                 $newValue = stringify($item['newValue'], $depth);
@@ -24,22 +24,22 @@ function iter($diff, $depth = 0)
                     "{$indent}  - {$item['key']}: {$oldValue}",
                     "{$indent}  + {$item['key']}: {$newValue}"
                 ];
-                $acc = implode("\n", $lines);
-                return $acc;
+                $result = implode("\n", $lines);
+                return $result;
             case 'deleted':
                 $value = stringify($item['value'], $depth);
-                $acc = "{$indent}  - {$item['key']}: {$value}";
-                return $acc;
+                $result = "{$indent}  - {$item['key']}: {$value}";
+                return $result;
             case 'added':
                 $value = stringify($item['value'], $depth);
-                $acc = "{$indent}  + {$item['key']}: {$value}";
-                return $acc;
+                $result = "{$indent}  + {$item['key']}: {$value}";
+                return $result;
             case 'nested':
                 $children = iter($item['children'], $depth + 1);
-                $acc = "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}";
-                return $acc;
+                $result = "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}";
+                return $result;
             default:
-                throw new \Exception("Node" . $item['type'] . "is not supported");
+                throw new \Exception("Node {$item['type']} is not supported");
         }
     }, $diff);
     return implode("\n", $mapped);

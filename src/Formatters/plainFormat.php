@@ -8,36 +8,34 @@ function render($diff)
 {
     $mapped = iter($diff);
     $flattened = Collection\flattenAll($mapped);
-    $compacted = Collection\compact($flattened);
-    return implode("\n", $compacted);
+    return implode("\n", $flattened);
 }
 
 function iter($diff, $ancestry = "")
 {
     $mapped = array_map(function ($item) use ($ancestry) {
-        $ancestry = ltrim("{$ancestry}.{$item['key']}", ".");
         switch ($item['type']) {
             case 'changed':
                 $oldValue = stringify($item['oldValue']);
                 $newValue = stringify($item['newValue']);
-                $acc = "Property '{$ancestry}' was updated. From {$oldValue} to {$newValue}";
-                return $acc;
+                $result = "Property '{$ancestry}{$item["key"]}' was updated. From {$oldValue} to {$newValue}";
+                return $result;
             case 'deleted':
                 $value = stringify($item['value']);
-                $acc = "Property '{$ancestry}' was removed";
-                return $acc;
+                $result = "Property '{$ancestry}{$item["key"]}' was removed";
+                return $result;
             case 'added':
                 $value = stringify($item['value']);
-                $acc = "Property '{$ancestry}' was added with value: {$value}";
-                return $acc;
+                $result = "Property '{$ancestry}{$item["key"]}' was added with value: {$value}";
+                return $result;
             case 'nested':
-                $children = iter($item['children'], $ancestry);
-                $acc = $children;
-                return $acc;
+                $children = iter($item['children'], "{$ancestry}{$item['key']}.");
+                $result = $children;
+                return $result;
             case 'unchanged':
-                break;
+                return [];
             default:
-                throw new \Exception("Node" . $item['type'] . "is not supported");
+                throw new \Exception("Node {$item['type']} is not supported");
         }
     }, $diff);
     return $mapped;
