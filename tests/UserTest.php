@@ -26,7 +26,7 @@ class UserTest extends TestCase
         $result = generateDiff($filepath1, $filepath2, $format);
         $this->assertStringEqualsFile($pathToResult, $result);
     }
-    
+
     public function testProvider()
     {
         return [

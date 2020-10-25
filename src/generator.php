@@ -16,7 +16,6 @@ function generateDiff($filePath1, $filePath2, $formatName = 'basic')
     $parsedDataAfter = parse($rawDataAfter);
 
     $diff = buildDiff($parsedDataBefore, $parsedDataAfter);
-    
     return format($diff, $formatName);
 }
 
