@@ -8,14 +8,13 @@ use function Biserg\Gendiff\Formater\format;
 
 function generateDiff($filePath1, $filePath2, $formatName = 'basic')
 {
+    [ 'extention' => $dataType1, 'content' => $rawData1 ] = getFileData($filePath1);
+    $data1 = parse($rawData1, $dataType1);
 
-    $rawDataBefore = getFileData($filePath1);
-    $rawDataAfter = getFileData($filePath2);
+    [ 'extention' => $dataType2, 'content' => $rawData2 ] = getFileData($filePath2);
+    $data2 = parse($rawData2, $dataType2);
 
-    $parsedDataBefore = parse($rawDataBefore['content'], $rawDataBefore['extention']);
-    $parsedDataAfter = parse($rawDataAfter['content'], $rawDataAfter['extention']);
-
-    $diff = buildDiff($parsedDataBefore, $parsedDataAfter);
+    $diff = buildDiff($data1, $data2);
     return format($diff, $formatName);
 }
 

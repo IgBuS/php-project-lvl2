@@ -35,9 +35,8 @@ function iter($diff, $depth = 0)
                 $result = "{$indent}  + {$item['key']}: {$value}";
                 return $result;
             case 'nested':
-                $children = iter($item['children'], $depth + 1);
-                $result = "{$indent}    {$item['key']}: {\n{$children}\n    {$indent}}";
-                return $result;
+                $result = iter($item['children'], $depth + 1);
+                return "{$indent}    {$item['key']}: {\n{$result}\n    {$indent}}";
             default:
                 throw new \Exception("Node {$item['type']} is not supported");
         }

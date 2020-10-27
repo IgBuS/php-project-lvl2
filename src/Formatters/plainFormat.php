@@ -29,8 +29,7 @@ function iter($diff, $ancestry = "")
                 $result = "Property '{$ancestry}{$item["key"]}' was added with value: {$value}";
                 return $result;
             case 'nested':
-                $children = iter($item['children'], "{$ancestry}{$item['key']}.");
-                $result = $children;
+                $result = iter($item['children'], "{$ancestry}{$item['key']}.");
                 return $result;
             case 'unchanged':
                 return [];
