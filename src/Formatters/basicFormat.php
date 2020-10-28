@@ -56,20 +56,15 @@ function stringify($value, $depth)
         return implode("\n", $value);
     }
     if (is_object($value)) {
-        $value = get_object_vars($value);
-        return prepareArrayToOutput($value, $depth);
+        $array = get_object_vars($value);
+        $indent = str_repeat('    ', $depth + 1);
+        $keys = array_keys($array);
+        $values = array_map(function ($key) use ($array, $depth, $indent) {
+            $value = stringify($array[$key], $depth + 1);
+            return "{$indent}    {$key}: {$value}";
+        }, $keys);
+        $result = implode("\n", $values);
+        return "{\n{$result}\n{$indent}}";
     }
     return $value;
-}
-
-function prepareArrayToOutput($array, $depth)
-{
-    $indent = str_repeat('    ', $depth + 1);
-    $keys = array_keys($array);
-    $values = array_map(function ($key) use ($array, $depth, $indent) {
-        $value = stringify($array[$key], $depth + 1);
-        return "{$indent}    {$key}: {$value}";
-    }, $keys);
-    $result = implode("\n", $values);
-    return "{\n{$result}\n{$indent}}";
 }

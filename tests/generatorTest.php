@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 use function Biserg\Gendiff\Generator\generateDiff;
 
-class UserTest extends TestCase
+class GeneratorTest extends TestCase
 {
     /**
     * @dataProvider testProvider
