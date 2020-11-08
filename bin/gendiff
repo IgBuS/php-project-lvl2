@@ -29,4 +29,4 @@ $filePath1 = $args['<firstFile>'];
 $filePath2 = $args['<secondFile>'];
 $format = $args['--format'];
 
-generateDiff($filePath1, $filePath2, $format);
+echo generateDiff($filePath1, $filePath2, $format);
