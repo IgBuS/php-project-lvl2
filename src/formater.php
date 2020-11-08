@@ -9,15 +9,9 @@ use Biserg\Gendiff\Formatters\Json;
 function format($diff, $format)
 {
     $formatters = [
-        'basic' => function ($diff) {
-            return Basic\render($diff);
-        },
-        'plain' => function ($diff) {
-            return Plain\render($diff);
-        },
-        'json' => function ($diff) {
-            return Json\render($diff);
-        }
+        'basic' => fn($diff) => Basic\render($diff),
+        'plain' => fn($diff) => Plain\render($diff),
+        'json' => fn($diff) => Json\render($diff)
     ];
 
     if (!array_key_exists($format, $formatters)) {
